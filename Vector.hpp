@@ -42,9 +42,9 @@ public:
     Vector() {
 	// TODO: Implement this function.
 	std::cout << "Default Constructor" << std::endl;
-	elems = new T[length];
-	cap = 0;
-	length = initialCapacity;
+	cap = initialCapacity;
+	length = 0;
+	elems = new T[cap];
     }
 
     /**
@@ -54,10 +54,10 @@ public:
     Vector(const Vector &other) {
 	// TODO: Implement this function.
 	std::cout << "Copy Constructor" << std::endl;
-	capacity = other.capacity;
+	cap = other.cap;
 	length = other.length;
-	elems = new T[capacity];
-	for(int i = 0; i < length; ++i)
+	elems = new T[cap];
+	for(int i = 0; i < length; i++)
 	{
 		elems[i] = other.elems[i];
 	}
@@ -70,6 +70,16 @@ public:
      */
     Vector &operator=(const Vector &other) {
 	// TODO: Implement this function.
+	size_t i;
+	if(cap < other.length)
+	{
+		cap = other.length << 2;
+	}
+	for(i = 0; i < other.length; i++)
+	{
+		elems[i] = other.elems[i];
+	}
+	length = other.length;
     }
 
     /**
@@ -77,7 +87,7 @@ public:
      */
     ~Vector(){
 	// TODO: Implement this function.
-	std::cout << "Destructor" << std::endl;
+	//std::cout << "Destructor" << std::endl;
 	delete [] elems;
     }
 
@@ -89,7 +99,9 @@ public:
      * @return An iterator to the first element.
      */
     iterator begin() {
-	// TODO: Implement this function.
+	// TODO: Implement this function.	
+	return elems; 
+	
     }
 
     /**
@@ -98,6 +110,7 @@ public:
      */
     iterator end() {
 	// TODO: Implement this function.
+	return elems + length;
     }
 
     /**
@@ -106,6 +119,7 @@ public:
      */
     constIterator begin() const {
 	// TODO: Implement this function.
+	return elems;
     }
 
     /**
@@ -114,6 +128,7 @@ public:
      */
     constIterator end() const {
 	// TODO: Implement this function.
+	return elems + length;
     }
 
     /**
@@ -122,6 +137,7 @@ public:
      */
     std::size_t capacity() const {
 	// TODO: Implement this function.
+	return cap;
     }
 
     /**
@@ -130,6 +146,7 @@ public:
      */
     std::size_t size() const {
 	// TODO: Implement this function.
+	return length;
     }
 
     /**
@@ -139,6 +156,13 @@ public:
      */
     void pushBack(T elem) {
 	// TODO: Implement this function.
+	
+	if(length == cap)
+	{
+		cap = cap + cap;
+		//reallocate();
+	}
+	elems[length++] = elem;
     }
 
     /**
@@ -148,6 +172,15 @@ public:
      */
     void popBack() {
 	// TODO: Implement this function.
+	if(length == 0)
+	{
+
+	}
+	else
+	{
+		--length;
+		elems[length].~Vector();
+	}
     }
 
     /**
@@ -158,6 +191,11 @@ public:
      */
     void reserve(std::size_t new_cap) {
 	// TODO: Implement this function.
+	if(new_cap > cap)
+	{
+		cap = new_cap;
+		//reallocate();
+	}
     }
 
     /**
@@ -168,6 +206,7 @@ public:
      */
     T &operator[](std::size_t pos) {
 	// TODO: Implement this function.
+	return elems[pos];
     }
 
     /**
@@ -178,6 +217,7 @@ public:
      */
     const T &operator[](std::size_t pos) const {
 	// TODO: Implement this function.
+	return elems[pos];
     }
 
     /**
@@ -188,6 +228,14 @@ public:
      */
     T &at(std::size_t pos) {
 	// TODO: Implement this function.
+	if(pos < length)
+	{
+		return elems[pos];
+	}
+	else
+	{
+		throw std::out_of_range("pos >= size of vector");
+	}
     }
 
     /**
@@ -198,6 +246,15 @@ public:
      */
     const T &at(std::size_t pos) const {
 	// TODO: Implement this function.
+	if(pos < length)
+        {
+                return elems[pos];
+        }
+        else
+        {
+                throw std::out_of_range("pos >= size of vector");
+        }
+
     }
 
     /**
@@ -206,6 +263,14 @@ public:
      */
     bool empty() const {
 	// TODO: Implement this function.
+	if(length == 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
     }
 
     /**
@@ -214,6 +279,12 @@ public:
      */
     void clear() {
 	// TODO: Implement this function.
+	size_t i;
+	for(i = 0; i < length; i++)
+	{
+		elems[i].~Vector();
+	}
+	length = 0;
     }
 
     /**
