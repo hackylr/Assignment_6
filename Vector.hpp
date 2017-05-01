@@ -2,7 +2,7 @@
 // File Name:      Vector.hpp
 //
 // Author:         Avery Chen, Damon Francisco 
-// CS email:       agchen@wisc.edu
+// CS email:       agchen@wisc.edu, Dfrancisco@wisc.edu
 //
 // Description:    A custom vector class with a subset
 //                 of features from std::vector
