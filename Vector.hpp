@@ -1,17 +1,17 @@
 ////////////////////////////////////////////////////////////////////////////////
 // File Name:      Vector.hpp
 //
-// Author:         <Your Name> 
-// CS email:       <Your CS email> 
+// Author:         Avery Chen, Damon Francisco 
+// CS email:       agchen@wisc.edu
 //
 // Description:    A custom vector class with a subset
 //                 of features from std::vector
 //
-// Sources:        cppreference.com, <sources, if any>
+// Sources:        cppreference.com
 //
 // URL(s) of sources:
 //                 http://en.cppreference.com/w/cpp/container/vector
-//                 <URLs of your sources, if any>
+//                 
 ////////////////////////////////////////////////////////////////////////////////
 
 #ifndef A6_VECTOR_HPP
@@ -39,8 +39,7 @@ public:
     /**
      * @brief Default Constructor.
      */
-    Vector() {
-	// TODO: Implement this function.
+    Vector(){ 
 	std::cout << "Default Constructor" << std::endl;
 	cap = initialCapacity;
 	length = 0;
@@ -52,8 +51,6 @@ public:
      * @param other The vector from which we should copy from.
      */
     Vector(const Vector &other) {
-	// TODO: Implement this function.
-	std::cout << "Copy Constructor" << std::endl;
 	cap = other.cap;
 	length = other.length;
 	elems = new T[cap];
@@ -69,25 +66,24 @@ public:
      * @return A reference to the vector on the LHS.
      */
     Vector &operator=(const Vector &other) {
-	// TODO: Implement this function.
 	size_t i;
+	
 	if(cap < other.length)
 	{
-		cap = other.length << 2;
+		cap = other.cap;
 	}
+	
+	length = other.length;
 	for(i = 0; i < other.length; i++)
 	{
 		elems[i] = other.elems[i];
 	}
-	length = other.length;
     }
 
     /**
      * @brief Destructor.
      */
     ~Vector(){
-	// TODO: Implement this function.
-	//std::cout << "Destructor" << std::endl;
 	delete [] elems;
     }
 
@@ -99,7 +95,6 @@ public:
      * @return An iterator to the first element.
      */
     iterator begin() {
-	// TODO: Implement this function.	
 	return elems; 
 	
     }
@@ -109,7 +104,6 @@ public:
      * @return An iterator to one past the last element.
      */
     iterator end() {
-	// TODO: Implement this function.
 	return elems + length;
     }
 
@@ -118,7 +112,6 @@ public:
      * @return A const iterator to the first element.
      */
     constIterator begin() const {
-	// TODO: Implement this function.
 	return elems;
     }
 
@@ -127,7 +120,6 @@ public:
      * @return A const iterator to one past the last element.
      */
     constIterator end() const {
-	// TODO: Implement this function.
 	return elems + length;
     }
 
@@ -136,7 +128,6 @@ public:
      * @return The number of elements that can be held in currently allocated storage.
      */
     std::size_t capacity() const {
-	// TODO: Implement this function.
 	return cap;
     }
 
@@ -145,7 +136,6 @@ public:
      * @return The number of elements in the container.
      */
     std::size_t size() const {
-	// TODO: Implement this function.
 	return length;
     }
 
@@ -155,12 +145,9 @@ public:
      * @param elem The element to be added.
      */
     void pushBack(T elem) {
-	// TODO: Implement this function.
-	
 	if(length == cap)
 	{
 		cap = cap + cap;
-		//reallocate();
 	}
 	elems[length++] = elem;
     }
@@ -171,16 +158,11 @@ public:
      *        If there are no elements in the container, then do nothing.
      */
     void popBack() {
-	// TODO: Implement this function.
 	if(length == 0)
 	{
-
+		return;
 	}
-	else
-	{
-		--length;
-		elems[length].~Vector();
-	}
+	--length;
     }
 
     /**
@@ -190,11 +172,9 @@ public:
      * @param new_cap new capacity of the container.
      */
     void reserve(std::size_t new_cap) {
-	// TODO: Implement this function.
 	if(new_cap > cap)
 	{
 		cap = new_cap;
-		//reallocate();
 	}
     }
 
@@ -205,7 +185,6 @@ public:
      *         No bounds checking is performed.
      */
     T &operator[](std::size_t pos) {
-	// TODO: Implement this function.
 	return elems[pos];
     }
 
@@ -216,7 +195,6 @@ public:
      *         No bounds checking is performed.
      */
     const T &operator[](std::size_t pos) const {
-	// TODO: Implement this function.
 	return elems[pos];
     }
 
@@ -227,7 +205,6 @@ public:
      * @throw std::out_of_range if pos >= the size of the vector.
      */
     T &at(std::size_t pos) {
-	// TODO: Implement this function.
 	if(pos < length)
 	{
 		return elems[pos];
@@ -245,7 +222,6 @@ public:
      * @throw std::out_of_range if pos >= the size of the vector.
      */
     const T &at(std::size_t pos) const {
-	// TODO: Implement this function.
 	if(pos < length)
         {
                 return elems[pos];
@@ -262,7 +238,6 @@ public:
      * @return true if the container is empty, false otherwise.
      */
     bool empty() const {
-	// TODO: Implement this function.
 	if(length == 0)
 	{
 		return true;
@@ -278,12 +253,6 @@ public:
      *        Leaves the capacity of the vector unchanged.
      */
     void clear() {
-	// TODO: Implement this function.
-	size_t i;
-	for(i = 0; i < length; i++)
-	{
-		elems[i].~Vector();
-	}
 	length = 0;
     }
 
@@ -295,8 +264,8 @@ public:
      */
     iterator erase(iterator pos) {
 	// TODO: Implement this function.
+	
     }
 };
 
 #endif //A6_VECTOR_HPP
-
